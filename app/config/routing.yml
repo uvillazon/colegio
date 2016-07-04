@@ -1,0 +1,7 @@
+sistema_colegio:
+    resource: "@SistemaColegioBundle/Resources/config/routing.yml"
+    prefix:   /backend
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /

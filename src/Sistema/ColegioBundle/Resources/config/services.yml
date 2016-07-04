@@ -1,0 +1,18 @@
+services:
+    jwt.security.authentication.provider:
+        class: Sistema\ColegioBundle\Security\Authentication\Provider\JWTProvider
+        arguments: ["", "%kernel.cache_dir%/security/nonces"]
+
+    jwt.security.authentication.listener:
+        class: Sistema\ColegioBundle\Security\Firewall\JWTListener
+        arguments: ["@security.token_storage", "@security.authentication.manager"]
+        calls:
+            - [ setContainer,[@service_container] ]
+
+    colegiobundle.gestion_service:
+        class: Sistema\ColegioBundle\Services\GestionService
+        arguments: ["@doctrine.orm.entity_manager"]
+
+#    elfec_gestion_moviles.example:
+#        class: Elfec\GestionMovilesBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

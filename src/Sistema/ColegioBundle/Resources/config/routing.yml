@@ -1,0 +1,4 @@
+Medidores:
+    type:     rest
+    prefix:   /gestion
+    resource: Sistema\ColegioBundle\Controller\GestionController
