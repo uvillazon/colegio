@@ -2,3 +2,8 @@ Medidores:
     type:     rest
     prefix:   /gestion
     resource: Sistema\ColegioBundle\Controller\GestionController
+
+Cursos:
+    type:     rest
+    prefix:   /cursos
+    resource: Sistema\ColegioBundle\Controller\CursosController

@@ -144,45 +144,5 @@ class Gestion
     {
         return $this->fechaFin;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->gesCurso = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add gesCurso
-     *
-     * @param \Sistema\ColegioBundle\Entity\GesCurso $gesCurso
-     *
-     * @return Gestion
-     */
-    public function addGesCurso(\Sistema\ColegioBundle\Entity\GesCurso $gesCurso)
-    {
-        $this->gesCurso[] = $gesCurso;
-
-        return $this;
-    }
-
-    /**
-     * Remove gesCurso
-     *
-     * @param \Sistema\ColegioBundle\Entity\GesCurso $gesCurso
-     */
-    public function removeGesCurso(\Sistema\ColegioBundle\Entity\GesCurso $gesCurso)
-    {
-        $this->gesCurso->removeElement($gesCurso);
-    }
-
-    /**
-     * Get gesCurso
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGesCurso()
-    {
-        return $this->gesCurso;
-    }
 }
+
