@@ -1,7 +1,12 @@
 sistema_colegio:
     resource: "@SistemaColegioBundle/Resources/config/routing.yml"
-    prefix:   /backend
+    prefix:   /api
 
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /
+
+token:
+    type:     rest
+    prefix:   /login
+    resource: Sistema\ColegioBundle\Controller\TokenController
