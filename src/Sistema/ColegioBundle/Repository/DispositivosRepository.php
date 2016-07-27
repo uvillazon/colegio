@@ -10,4 +10,15 @@ namespace Sistema\ColegioBundle\Repository;
  */
 class DispositivosRepository extends BaseRepository
 {
+    public function obtenerAplicacion($sha)
+    {
+        $dispositivos = $this->findBy(array("estado" => 1));
+        foreach ($dispositivos as $dispositivo) {
+            $encrypt = sha1($dispositivo->getImei());
+            if ($encrypt == $sha) {
+                return $dispositivo;
+            }
+        }
+        return null;
+    }
 }

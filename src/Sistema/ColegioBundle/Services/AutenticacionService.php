@@ -28,29 +28,53 @@ class AutenticacionService
     public function generarTokenPorDispositivo($data)
     {
         $result = new \Sistema\ColegioBundle\Model\RespuestaSP();
-        var_dump(sha1($data["imei"]));
-//        var_dump()
-        if (!is_null($data["imei"])) {
+        if (array_key_exists("key", $data)) {
             $managerDispositivo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
-            $obj = $managerDispositivo->findOneBy(array('imei' => $data["imei"]));
-            if (!is_null($obj)) {
-
+            $aplic = $managerDispositivo->obtenerAplicacion($data["key"]);
+            if(!is_null($aplic)){
                 $token = [
                     "exp" => time() + 2880000,
-                    "iddispositivo" => $obj->getIddispositivo()
+                    "iddispositivo" => $aplic->getIddispositivo()
                 ];
-                $jwt = JWT::encode($token, $obj->getToken());
+                $jwt = JWT::encode($token, $aplic->getToken());
                 $result->success = true;
                 $result->msg = "proceso ejecutado correctamente";
-                $result->data = array("token" => $jwt, "dipositivo" => $obj->getImei());
-            } else {
+                $result->data = array("token" => $jwt, "dipositivo" => $aplic->getImei());
+
+            }
+            else{
                 $result->msg = "No existe el IMEI asociado al sistema";
                 $result->success = false;
             }
+
         } else {
-            $result->msg = "No existe el IMEI";
+            $result->msg = "es necesario enviar el parametro : key";
             $result->success = false;
         }
+//        var_dump(sha1($data["imei"]));
+////        mcrypt_decrypt(sha1($data["imei"]));
+////        var_dump()
+//        if (!is_null($data["imei"])) {
+//            $managerDispositivo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
+//            $obj = $managerDispositivo->findOneBy(array('imei' => $data["imei"]));
+//            if (!is_null($obj)) {
+//
+//                $token = [
+//                    "exp" => time() + 2880000,
+//                    "iddispositivo" => $obj->getIddispositivo()
+//                ];
+//                $jwt = JWT::encode($token, $obj->getToken());
+//                $result->success = true;
+//                $result->msg = "proceso ejecutado correctamente";
+//                $result->data = array("token" => $jwt, "dipositivo" => $obj->getImei());
+//            } else {
+//                $result->msg = "No existe el IMEI asociado al sistema";
+//                $result->success = false;
+//            }
+//        } else {
+//            $result->msg = "No existe el IMEI";
+//            $result->success = false;
+//        }
 
 
         return $result;

@@ -64,20 +64,19 @@ class JWTListener implements ListenerInterface
 
                 $refCon = new \ReflectionObject($coneccion);
 
-                $refParams = $refCon->getProperty("_params");
-                $refParams->setAccessible("public");
-
-                $params = $refParams->getValue($coneccion);
-                $params["dbname"] = $keydecoded->dbname;
-                $params["user"] = $keydecoded->user;
-                $params["password"] = $keydecoded->password;
-                $params["driver"] = $keydecoded->driver;
-                $params["host"] = $keydecoded->host;
-                $params["port"] = $keydecoded->port;
-                $refParams->setAccessible("private");
-                $refParams->setValue($coneccion, $params);
-
-                $this->container->get("doctrine")->resetEntityManager("default");
+//                $refParams = $refCon->getProperty("_params");
+//                $refParams->setAccessible("public");
+//
+//                $params = $refParams->getValue($coneccion);
+//                $params["dbname"] = $keydecoded->dbname;
+//                $params["user"] = $keydecoded->user;
+//                $params["password"] = $keydecoded->password;
+//                $params["driver"] = $keydecoded->driver;
+//                $params["host"] = $keydecoded->host;
+//                $params["port"] = $keydecoded->port;
+//                $refParams->setAccessible("private");
+//                $refParams->setValue($coneccion, $params);
+//                $this->container->get("doctrine")->resetEntityManager("default");
                 return;
             } catch (\Exception $a) {
                 if ($a->getMessage() === "Expired token") {

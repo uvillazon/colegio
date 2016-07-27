@@ -20,6 +20,12 @@ services:
     colegiobundle.autenticacion_service:
         class: Sistema\ColegioBundle\Services\AutenticacionService
         arguments: ["@doctrine.orm.entity_manager"]
+
+    colegiobundle.estudiantes_service:
+        class: Sistema\ColegioBundle\Services\EstudiantesService
+        arguments: ["@doctrine.orm.entity_manager"]
+
+
 #    elfec_gestion_moviles.example:
 #        class: Elfec\GestionMovilesBundle\Example
 #        arguments: ["@service_id", "plain_value", %parameter%]

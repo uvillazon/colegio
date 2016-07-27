@@ -7,3 +7,8 @@ Cursos:
     type:     rest
     prefix:   /cursos
     resource: Sistema\ColegioBundle\Controller\CursosController
+
+Estudiantes:
+    type:     rest
+    prefix:   /estudiantes
+    resource: Sistema\ColegioBundle\Controller\EstudiantesController
