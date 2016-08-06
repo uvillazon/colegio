@@ -9,7 +9,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class EstudiantesController extends BaseController
+class DispositivosController extends BaseController
 {
     /**
      * Obtener Estudiantes Paginados
@@ -22,7 +22,7 @@ class EstudiantesController extends BaseController
      * propiedad de la tabla : valor , operador = AND o OR por defecto esta AND
      * por ejemplo para periodos quiero filtrar todos los periodos con etapa a REGIMEN y nro resolucion LL tengo que enviar
      * etapa : REGIMEN , nro_resolucion : lL
-     * @Rest\Get("/estudiantes")
+     * @Rest\Get("/")
      * @ApiDoc(
      *   resource = true,
      *   description = "Obtener Estudiantes Paginado",
@@ -35,15 +35,40 @@ class EstudiantesController extends BaseController
      *   }
      * )
      */
-    public function getEstudiantesAction(Request $request)
+    public function getDispositivosAction(Request $request)
     {
         $paginacion = $this->obtenerPaginacion($request);
-        $servicio = $this->get('colegiobundle.estudiantes_service');
-        $dispo = $this->container->get("JWTDispositivo");
-//        var_dump($dispo);
-        $iddispositivo = is_null($dispo) ? null : $dispo->iddispositivo;
+        $servicio = $this->get('colegiobundle.dispositivo_service');
         $array = $request->query;
-        $result = $servicio->obtenerEstudiantesPaginados($paginacion, $array, $iddispositivo);
+        $result = $servicio->obtenerDispositivosPaginados($paginacion, $array);
         return $result;
+    }
+
+    /**
+     * Este Metodo desasignar lotes a Ordenes de Trabajo
+     * como resultado devuelve los sig. datos{ success= true cuando esta correcto o false si ocurrio algun problema}
+     * msg = "mensaje de la accion" , id = "Id del objeto guardado" , data = datos del objeto guardado}
+     * Se debe enviar los nombres de las propiedades de las tablas de la BD
+     * @Rest\Put("/")
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Metodo de Designacion de Lote de  Ordenes de Trabajo",
+     *   output = "Array",
+     *   authentication = true,
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the page is not found",
+     *     403 = "Returned when permission denied"
+     *   }
+     * )
+     *
+     */
+    public function putDispositivosAction(Request $request) {
+
+        $data = $this->arrayToFormPost($request);
+        $servicio = $this->get('colegiobundle.dispositivo_service');
+        $result = $servicio->editarDispositivo($data);
+        return $result;
+
     }
 }

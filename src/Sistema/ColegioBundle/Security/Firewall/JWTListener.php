@@ -45,6 +45,7 @@ class JWTListener implements ListenerInterface
 
         $request = $event->getRequest();
         $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
         $encoder = str_replace("Bearer ", "", $request->headers->get('Authorization'));
         if (empty($encoder)) {
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
@@ -55,14 +56,13 @@ class JWTListener implements ListenerInterface
                 $token = new JWTUserToken();
                 $token->setRawToken($decoded);
                 $this->container->set("JWTToken", $token);
-                $this->container->set("JWTUser", $decoded->usuario);
-                $keydecoded = JWT::decode(JWT::decode($decoded->key, $this->secret, array('HS256')), $this->secret, array('HS256'));
-                $this->container->set("JWTTokenPostgres", $keydecoded);
+                $this->container->set("JWTDispositivo", $decoded->dispositivo);
+//                var_dump($token);
                 //Ccreamos la coneccion
-                $coneccion = $this->container->get("database_connection");
-                $coneccion->close();
+//                $coneccion = $this->container->get("database_connection");
+//                $coneccion->close();
 
-                $refCon = new \ReflectionObject($coneccion);
+//                $refCon = new \ReflectionObject($coneccion);
 
 //                $refParams = $refCon->getProperty("_params");
 //                $refParams->setAccessible("public");

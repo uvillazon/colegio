@@ -12,3 +12,8 @@ Estudiantes:
     type:     rest
     prefix:   /estudiantes
     resource: Sistema\ColegioBundle\Controller\EstudiantesController
+
+Dispositivos:
+    type:     rest
+    prefix:   /dispositivos
+    resource: Sistema\ColegioBundle\Controller\DispositivosController

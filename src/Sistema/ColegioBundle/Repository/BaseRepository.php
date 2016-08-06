@@ -87,6 +87,22 @@ class BaseRepository extends EntityRepository
 
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function max()
+    {
+        $query = $this->createQueryBuilder('app');
+        $idTable = $this->getClassMetadata()->getIdentifier()[0];
+        $max = $query->select('MAX(app.' . $idTable . ')')
+            ->getQuery()
+            ->getSingleScalarResult();
+//        var_dump($max);
+        return $max;
+
+
+    }
 //    public function total($query)
 //    {
 //        return count($query->getQuery()->getResult());

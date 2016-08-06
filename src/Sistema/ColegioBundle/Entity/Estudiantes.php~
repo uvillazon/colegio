@@ -56,7 +56,7 @@ class Estudiantes
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @ORM\OneToMany(targetEntity="DispositivosUsuarios", mappedBy="estudiante")
+     * @ORM\OneToMany(targetEntity="DispositivosUsuarios", mappedBy="dispositivo")
      */
     private $dispositivosUsuarios;
 
@@ -204,45 +204,5 @@ class Estudiantes
     {
         return $this->fechaNacimiento;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->dispositivosUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add dispositivosUsuario
-     *
-     * @param \Sistema\ColegioBundle\Entity\DispositivosUsuarios $dispositivosUsuario
-     *
-     * @return Estudiantes
-     */
-    public function addDispositivosUsuario(\Sistema\ColegioBundle\Entity\DispositivosUsuarios $dispositivosUsuario)
-    {
-        $this->dispositivosUsuarios[] = $dispositivosUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Remove dispositivosUsuario
-     *
-     * @param \Sistema\ColegioBundle\Entity\DispositivosUsuarios $dispositivosUsuario
-     */
-    public function removeDispositivosUsuario(\Sistema\ColegioBundle\Entity\DispositivosUsuarios $dispositivosUsuario)
-    {
-        $this->dispositivosUsuarios->removeElement($dispositivosUsuario);
-    }
-
-    /**
-     * Get dispositivosUsuarios
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDispositivosUsuarios()
-    {
-        return $this->dispositivosUsuarios;
-    }
 }
+

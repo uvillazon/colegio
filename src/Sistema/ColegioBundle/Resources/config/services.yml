@@ -25,6 +25,9 @@ services:
         class: Sistema\ColegioBundle\Services\EstudiantesService
         arguments: ["@doctrine.orm.entity_manager"]
 
+    colegiobundle.dispositivo_service:
+        class: Sistema\ColegioBundle\Services\DispositivosService
+        arguments: ["@doctrine.orm.entity_manager"]
 
 #    elfec_gestion_moviles.example:
 #        class: Elfec\GestionMovilesBundle\Example

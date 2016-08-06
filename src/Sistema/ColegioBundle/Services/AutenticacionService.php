@@ -18,6 +18,8 @@ class AutenticacionService
     protected $em;
     private $usrArray = array();
     private $idUsr = 0;
+    private $signature = "3FyKWEU/LSEdiYk1f5hE8DjknO8=";
+    private $version = "1";
 
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
@@ -25,24 +27,50 @@ class AutenticacionService
         $this->em = $em;
     }
 
+    private function verificarSignature($imei, $key)
+    {
+        $hash = $imei . "" . $this->signature . "" . $this->version;
+//        var_dump($hash);
+        if ($key === sha1($hash)) {
+            return true;
+        }
+        return false;
+    }
+
     public function generarTokenPorDispositivo($data)
     {
         $result = new \Sistema\ColegioBundle\Model\RespuestaSP();
+        $imei = $data["imei"];
+        $key = $data["key"];
+        if (!$this->verificarSignature($imei, $key)) {
+
+            $result->success = false;
+            $result->msg = "Signature Failed";
+            return $result;
+        }
+
         if (array_key_exists("key", $data)) {
+        var_dump($key);
             $managerDispositivo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
-            $aplic = $managerDispositivo->obtenerAplicacion($data["key"]);
-            if(!is_null($aplic)){
+            $aplic = $managerDispositivo->obtenerAplicacion($imei);
+            var_dump($aplic);
+            if (!is_null($aplic)) {
                 $token = [
                     "exp" => time() + 2880000,
-                    "iddispositivo" => $aplic->getIddispositivo()
+                    "dispositivo" => array(
+                        "iddispositivo" => $aplic->getIddispositivo(),
+                        "imei" => $aplic->getImei(),
+                        "token" => $aplic->getToken(),
+                        "estado" => $aplic->getEstado()
+                    )
+//                    "iddispositivo" => $aplic->getIddispositivo()
                 ];
-                $jwt = JWT::encode($token, $aplic->getToken());
+                $jwt = JWT::encode($token, "developmentSessionSecret");
                 $result->success = true;
                 $result->msg = "proceso ejecutado correctamente";
                 $result->data = array("token" => $jwt, "dipositivo" => $aplic->getImei());
 
-            }
-            else{
+            } else {
                 $result->msg = "No existe el IMEI asociado al sistema";
                 $result->success = false;
             }

@@ -7,7 +7,7 @@
 namespace Sistema\ColegioBundle\Services;
 
 
-class EstudiantesService
+class DispositivosService
 {
     protected $em;
 
@@ -22,20 +22,15 @@ class EstudiantesService
      * @param array $array
      * @return \Sistema\ColegioBundle\Model\ResultPaginacion
      */
-    public function obtenerEstudiantesPaginados($paginacion, $array, $iddispositivo)
+    public function obtenerDispositivosPaginados($paginacion, $array)
     {
         $result = new \Sistema\ColegioBundle\Model\ResultPaginacion();
-        $repo = $this->em->getRepository('SistemaColegioBundle:Estudiantes');
+        $repo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
         $query = $repo->createQueryBuilder('app');
-//        var_dump($query->getDQL());
         if (!is_null($paginacion->contiene)) {
-            $query = $repo->consultaContiene($query, ["cod_estudiante", "nombres", "sexo"], $paginacion->contiene);
+            $query = $repo->consultaContiene($query, ["imei", "token", "estado"], $paginacion->contiene);
         }
         $query = $repo->filtrarDatos($query, $array);
-
-        if (!is_null($iddispositivo)) {
-            $query = $repo->filtrarPorDispositivos($query, $iddispositivo);
-        }
         $result->total = $repo->total($query);
         if (!$paginacion->isEmpty()) {
             $query = $repo->obtenerElementosPaginados($query, $paginacion);
@@ -43,6 +38,15 @@ class EstudiantesService
         $result->rows = $query->getQuery()->getResult();
         $result->success = true;
         return $result;
+    }
+
+
+    public function editarDispositivo($data)
+    {
+        $repo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
+        $result = $repo->editarDispositivo($data);
+        return $result;
+
     }
 
 }

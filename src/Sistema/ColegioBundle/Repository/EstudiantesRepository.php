@@ -10,4 +10,18 @@ namespace Sistema\ColegioBundle\Repository;
  */
 class EstudiantesRepository extends BaseRepository
 {
+    /**
+     * @param \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder $query
+     * @param $iddispositivo
+     * @return \Doctrine\ORM\Query|\Doctrine\ORM\QueryBuilder
+     */
+    public function filtrarPorDispositivos($query, $iddispositivo)
+    {
+        $alias = $query->getRootAlias();
+        $query->innerJoin($alias . '.dispositivosUsuarios', 'a');
+        $query->andWhere('a.iddispositivo = :iddispositivo');
+        $query->setParameter("iddispositivo", $iddispositivo);
+        return $query;
+
+    }
 }
