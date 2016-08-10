@@ -10,11 +10,13 @@ namespace Sistema\ColegioBundle\Services;
 class EstudiantesService
 {
     protected $em;
+    protected $repoMaterias;
 
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
 
         $this->em = $em;
+        $this->repoMaterias = $this->em->getRepository("SistemaColegioBundle:Materias");
     }
 
     /**
@@ -39,6 +41,12 @@ class EstudiantesService
         $result->total = $repo->total($query);
         if (!$paginacion->isEmpty()) {
             $query = $repo->obtenerElementosPaginados($query, $paginacion);
+        }
+        /**
+         * @var \Sistema\ColegioBundle\Entity\Estudiantes $item
+         */
+        foreach ($query->getQuery()->getResult() as $item) {
+            $item->materias = $this->repoMaterias->findAll();
         }
         $result->rows = $query->getQuery()->getResult();
         $result->success = true;

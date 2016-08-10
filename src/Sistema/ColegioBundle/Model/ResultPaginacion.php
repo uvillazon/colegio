@@ -16,4 +16,5 @@ class ResultPaginacion
     public $total;
     public $page;
     public $msg;
+    public $code=200;
 }

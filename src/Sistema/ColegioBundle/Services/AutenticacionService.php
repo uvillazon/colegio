@@ -46,14 +46,15 @@ class AutenticacionService
 
             $result->success = false;
             $result->msg = "Signature Failed";
+            $result->code = 401;
             return $result;
         }
 
         if (array_key_exists("key", $data)) {
-        var_dump($key);
+//        var_dump($key);
             $managerDispositivo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
             $aplic = $managerDispositivo->obtenerAplicacion($imei);
-            var_dump($aplic);
+//            var_dump($aplic);
             if (!is_null($aplic)) {
                 $token = [
                     "exp" => time() + 2880000,

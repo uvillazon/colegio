@@ -65,7 +65,7 @@ class TokenController extends BaseController
         $header = $request->headers;
         $result = $servicio->generarTokenPorDispositivo($array, $header);
 
-
-        return $result;
+        return $this->response($result);
+//        return $result;
     }
 }

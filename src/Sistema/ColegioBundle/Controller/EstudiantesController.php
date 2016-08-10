@@ -22,7 +22,7 @@ class EstudiantesController extends BaseController
      * propiedad de la tabla : valor , operador = AND o OR por defecto esta AND
      * por ejemplo para periodos quiero filtrar todos los periodos con etapa a REGIMEN y nro resolucion LL tengo que enviar
      * etapa : REGIMEN , nro_resolucion : lL
-     * @Rest\Get("/estudiantes")
+     * @Rest\Get("/")
      * @ApiDoc(
      *   resource = true,
      *   description = "Obtener Estudiantes Paginado",
@@ -44,6 +44,6 @@ class EstudiantesController extends BaseController
         $iddispositivo = is_null($dispo) ? null : $dispo->iddispositivo;
         $array = $request->query;
         $result = $servicio->obtenerEstudiantesPaginados($paginacion, $array, $iddispositivo);
-        return $result;
+        return $this->response($result);
     }
 }

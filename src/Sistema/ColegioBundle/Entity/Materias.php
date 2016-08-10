@@ -41,6 +41,9 @@ class Materias
      */
     private $idgrupoMateria;
 
+    private $profesor = "NAN";
+    private $curso = "1 MEDIO";
+
 
     /**
      * Set idmateria

@@ -13,12 +13,12 @@ class DispositivosRepository extends BaseRepository
     public function obtenerAplicacion($imei)
     {
 //        $array = explode("|", $sha);
-        var_dump($imei);
+//        var_dump($imei);
         try {
             $array = array("imei" => $imei);
-            var_dump($array);
-            $result = $this->findOneBy(array('estado' => 'ACTIVO'));
-            var_dump($result->getImei());
+//            var_dump($array);
+            $result = $this->findOneBy(array('imei' => $imei));
+//            var_dump($result->getImei());
             if (is_null($result)) {
 
 //            var_dump($sha);die();

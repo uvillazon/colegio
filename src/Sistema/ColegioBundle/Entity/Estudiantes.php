@@ -60,6 +60,8 @@ class Estudiantes
      */
     private $dispositivosUsuarios;
 
+    public $materias;
+
 
     /**
      * Set idestudiante
@@ -204,6 +206,7 @@ class Estudiantes
     {
         return $this->fechaNacimiento;
     }
+
     /**
      * Constructor
      */

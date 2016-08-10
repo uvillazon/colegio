@@ -15,4 +15,5 @@ class RespuestaSP
     public $msg;
     public $id;
     public $data;
+    public $code = 200;
 }
