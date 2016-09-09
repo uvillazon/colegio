@@ -1,11 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_pgsql
-    database_host: novamoda.com.bo
-    database_port: 5432
-    database_name: novamod2_colegio_oficial
-    database_user: novamod2_usuario
-    database_password: usuario
+    database_host: localhost
+    database_port: 5433
+    database_name: colegio_oficial
+    database_user: postgres
+    database_password: postgresql
     mailer_transport: mail
     mailer_host: elfmex01.elfec.com
     mailer_user: sisman@elfec.bo

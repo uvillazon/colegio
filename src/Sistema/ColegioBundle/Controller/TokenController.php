@@ -43,7 +43,7 @@ class TokenController extends BaseController
      * username : usuario
      * password : password}
      * }
-     * @Rest\Post("/token")
+     * @Rest\Post("/auth")
      * @ApiDoc(
      *   resource = true,
      *   description = "Obtener Token",
@@ -64,6 +64,37 @@ class TokenController extends BaseController
 
         $header = $request->headers;
         $result = $servicio->generarTokenPorDispositivo($array, $header);
+
+        return $this->response($result);
+//        return $result;
+    }
+
+    /**
+     * Obtencion de Token como parametros se tiene que enviar {codigoApp : codigo de aplicacion
+     * username : usuario
+     * password : password}
+     * }
+     * @Rest\Post("/auth_app")
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Obtener Token",
+     *   output = "Array",
+     *   authentication = true,
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the page is not found",
+     *     403 = "Returned when permission denied"
+     *   }
+     * )
+     */
+    public function postAutenticacionAction(Request $request)
+    {
+
+        $servicio = $this->get('colegiobundle.autenticacion_service');
+        $array = $request->request->all();
+
+        $header = $request->headers;
+        $result = $servicio->verificarAcceso($array, $header);
 
         return $this->response($result);
 //        return $result;

@@ -12,14 +12,18 @@ namespace Sistema\ColegioBundle\Services;
 use Doctrine\ORM\Tools\Export\ExportException;
 use Exception;
 use Firebase\JWT\JWT;
+use Sistema\ColegioBundle\Model\RespuestaSP;
 
 class AutenticacionService
 {
     protected $em;
     private $usrArray = array();
     private $idUsr = 0;
-    private $signature = "3FyKWEU/LSEdiYk1f5hE8DjknO8=";
-    private $version = "1";
+    private $signature1 = "mVLHKIEd785USmwZfSD6tSOr4/M=";
+    private $signature2 = "3FyKWEU/LSEdiYk1f5hE8DjknO8=";
+    private $versionIni = 1;
+    private $versionFin = 30;
+
 
     public function __construct(\Doctrine\ORM\EntityManager $em)
     {
@@ -29,11 +33,31 @@ class AutenticacionService
 
     private function verificarSignature($imei, $key)
     {
-        $hash = $imei . "" . $this->signature . "" . $this->version;
-//        var_dump($hash);
-        if ($key === sha1($hash)) {
-            return true;
+        $repo = $this->em->getRepository("ColegioSistemaBundle:Key");
+        $keys = $repo->findBy(array("estado" => "activo"));
+        /**
+         * @var \Sistema\ColegioBundle\Entity\Key $key
+         */
+        foreach ($keys as $key) {
+            $hash1 = $imei . "" . $key->getKey() . "" . $key->getKey();
+            if ($key === sha1($hash1)) {
+                return true;
+            }
         }
+        return false;
+
+//        for ($i = $this-> = versionIni; $i <= $this->versionFin; $i++) {
+//            $hash1 = $imei . "" . $this->signature1 . "" . (string)$i;
+//            $hash2 = $imei . "" . $this->signature2 . "" . (string)$i;
+//            if ($key === sha1($hash1)) {
+//                return true;
+//            }
+//        }
+//        $hash = $imei . "" . $this->signature . "" . $this->version;
+////        var_dump($hash);
+//        if ($key === sha1($hash) || $key === sha1($hash)) {
+//            return true;
+//        }
         return false;
     }
 
@@ -80,33 +104,23 @@ class AutenticacionService
             $result->msg = "es necesario enviar el parametro : key";
             $result->success = false;
         }
-//        var_dump(sha1($data["imei"]));
-////        mcrypt_decrypt(sha1($data["imei"]));
-////        var_dump()
-//        if (!is_null($data["imei"])) {
-//            $managerDispositivo = $this->em->getRepository('SistemaColegioBundle:Dispositivos');
-//            $obj = $managerDispositivo->findOneBy(array('imei' => $data["imei"]));
-//            if (!is_null($obj)) {
-//
-//                $token = [
-//                    "exp" => time() + 2880000,
-//                    "iddispositivo" => $obj->getIddispositivo()
-//                ];
-//                $jwt = JWT::encode($token, $obj->getToken());
-//                $result->success = true;
-//                $result->msg = "proceso ejecutado correctamente";
-//                $result->data = array("token" => $jwt, "dipositivo" => $obj->getImei());
-//            } else {
-//                $result->msg = "No existe el IMEI asociado al sistema";
-//                $result->success = false;
-//            }
-//        } else {
-//            $result->msg = "No existe el IMEI";
-//            $result->success = false;
-//        }
-
 
         return $result;
+
+    }
+
+    public function verificarAcceso($data)
+    {
+//        var_dump($data);
+        $repo = $this->em->getRepository("SistemaColegioBundle:UsuarioApp");
+        $login = $data["login"];
+        $contrasena = $data["contrasena"];
+        $usuario = $repo->findOneBy(array("usuario" => $login, "contrasena" => $contrasena));
+        if (is_null($usuario)) {
+            return new RespuestaSP(false, "Contrasena Incorrecta", null, 200);
+        }
+        return new RespuestaSP(true, "proceso ejecutado correctamente", $usuario, 200);
+
 
     }
 

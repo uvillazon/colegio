@@ -63,6 +63,12 @@ class Maestros
     private $fechaIngreso;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="HorarioMaestro", mappedBy="maestro")
+     */
+    private $horarioMaestro;
+
+    /**
      * Set idmaestro
      *
      * @param integer $idmaestro
@@ -229,5 +235,45 @@ class Maestros
     {
         return $this->fechaIngreso;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->horarioMaestro = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add horarioMaestro
+     *
+     * @param \Sistema\ColegioBundle\Entity\HorarioMaestro $horarioMaestro
+     *
+     * @return Maestros
+     */
+    public function addHorarioMaestro(\Sistema\ColegioBundle\Entity\HorarioMaestro $horarioMaestro)
+    {
+        $this->horarioMaestro[] = $horarioMaestro;
+
+        return $this;
+    }
+
+    /**
+     * Remove horarioMaestro
+     *
+     * @param \Sistema\ColegioBundle\Entity\HorarioMaestro $horarioMaestro
+     */
+    public function removeHorarioMaestro(\Sistema\ColegioBundle\Entity\HorarioMaestro $horarioMaestro)
+    {
+        $this->horarioMaestro->removeElement($horarioMaestro);
+    }
+
+    /**
+     * Get horarioMaestro
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHorarioMaestro()
+    {
+        return $this->horarioMaestro;
+    }
+}

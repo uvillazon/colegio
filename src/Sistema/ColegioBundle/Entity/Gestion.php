@@ -42,11 +42,17 @@ class Gestion
     private $fechaFin;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="estado", type="integer")
+     */
+    private $estado;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      * @ORM\OneToMany(targetEntity="GesCurso", mappedBy="gestion")
      */
     private $gesCurso;
-
 
 
     /**
@@ -144,6 +150,7 @@ class Gestion
     {
         return $this->fechaFin;
     }
+
     /**
      * Constructor
      */
@@ -184,5 +191,29 @@ class Gestion
     public function getGesCurso()
     {
         return $this->gesCurso;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param integer $estado
+     *
+     * @return Gestion
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return integer
+     */
+    public function getEstado()
+    {
+        return $this->estado;
     }
 }

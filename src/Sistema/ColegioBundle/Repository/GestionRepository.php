@@ -10,4 +10,9 @@ namespace Sistema\ColegioBundle\Repository;
  */
 class GestionRepository extends BaseRepository
 {
+    public function obtenerGestionActual()
+    {
+        //TODO Implementar la consulta para obtener la gestion con estado = 0
+        return 2016;
+    }
 }

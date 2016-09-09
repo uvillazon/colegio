@@ -8,5 +8,4 @@ NelmioApiDocBundle:
 
 token:
     type:     rest
-    prefix:   /login
     resource: Sistema\ColegioBundle\Controller\TokenController

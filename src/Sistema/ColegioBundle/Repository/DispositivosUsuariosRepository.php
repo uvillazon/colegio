@@ -10,4 +10,30 @@ namespace Sistema\ColegioBundle\Repository;
  */
 class DispositivosUsuariosRepository extends BaseRepository
 {
+
+    /**
+     * @param \Sistema\ColegioBundle\Entity\Estudiantes $estudiante
+     * @param \Sistema\ColegioBundle\Entity\Dispositivos $dispositivo
+     * @return \Sistema\ColegioBundle\Model\RespuestaSP
+     */
+    public function guardarUsuarioDispositivo($estudiante, $dispositivo)
+    {
+        $result = new \Sistema\ColegioBundle\Model\RespuestaSP();
+        try {
+            $disUsr = new \Sistema\ColegioBundle\Entity\DispositivosUsuarios();
+            $disUsr->setEstudiante($estudiante);
+            $disUsr->setDispositivo($dispositivo);
+
+            $this->_em->persist($disUsr);
+            $this->_em->flush();
+            $result->data = $estudiante;
+
+        } catch (\Exception $e) {
+            $result->msg = $e->getCode();
+            $result->success = false;
+            $result->code = 401;
+        }
+        return $result;
+
+    }
 }

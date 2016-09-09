@@ -16,6 +16,8 @@ class DispositivosUsuarios
      * @var int
      * @ORM\Id
      * @ORM\Column(name="iddispo_usuario", type="integer")
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="q_dispositivos_usuarios", allocationSize=1, initialValue=1)
      */
     private $iddispoUsuario;
 

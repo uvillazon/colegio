@@ -36,9 +36,16 @@ class Estudiantes
     /**
      * @var string
      *
-     * @ORM\Column(name="apellidos", type="string", length=200)
+     * @ORM\Column(name="apellido_paterno", type="string", length=200)
      */
-    private $apellidos;
+    private $apellidoPaterno;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apelllido_materno", type="string", length=200)
+     */
+    private $apellidoMaterno;
 
     /**
      * @var string
@@ -55,154 +62,108 @@ class Estudiantes
     private $fechaNacimiento;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="nombres_padre", type="string", length=200)
+     */
+    private $nombresPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellidos_padre", type="string", length=200)
+     */
+    private $apellidosPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="correo_padre", type="string", length=200)
+     */
+    private $correoPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="celular_padre", type="string", length=200)
+     */
+    private $celularPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profesion_padre", type="string", length=200)
+     */
+    private $profesionPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trabajo_padre", type="string", length=200)
+     */
+    private $trabajoPadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombres_madre", type="string", length=200)
+     */
+    private $nombresMadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="apellidos_madre", type="string", length=200)
+     */
+    private $apellidosMadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="correo_madre", type="string", length=200)
+     */
+    private $correoMadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="celular_madre", type="string", length=200)
+     */
+    private $celular_madre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="profesion_madre", type="string", length=200)
+     */
+    private $profesionMadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="trabajo_madre", type="string", length=200)
+     */
+    private $trabajoMadre;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pin", type="string", length=200)
+     */
+    private $pin;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
-     * @ORM\OneToMany(targetEntity="DispositivosUsuarios", mappedBy="dispositivo")
+     * @ORM\OneToMany(targetEntity="DispositivosUsuarios", mappedBy="estudiante")
      */
     private $dispositivosUsuarios;
 
+    public $materias;
 
-    /**
-     * Set idestudiante
-     *
-     * @param integer $idestudiante
-     *
-     * @return Estudiantes
-     */
-    public function setIdestudiante($idestudiante)
-    {
-        $this->idestudiante = $idestudiante;
+    public $reuniones;
+    public $notificaciones;
 
-        return $this;
-    }
+    public $grado;
 
-    /**
-     * Get idestudiante
-     *
-     * @return int
-     */
-    public function getIdestudiante()
-    {
-        return $this->idestudiante;
-    }
-
-    /**
-     * Set codEstudiante
-     *
-     * @param string $codEstudiante
-     *
-     * @return Estudiantes
-     */
-    public function setCodEstudiante($codEstudiante)
-    {
-        $this->codEstudiante = $codEstudiante;
-
-        return $this;
-    }
-
-    /**
-     * Get codEstudiante
-     *
-     * @return string
-     */
-    public function getCodEstudiante()
-    {
-        return $this->codEstudiante;
-    }
-
-    /**
-     * Set nombres
-     *
-     * @param string $nombres
-     *
-     * @return Estudiantes
-     */
-    public function setNombres($nombres)
-    {
-        $this->nombres = $nombres;
-
-        return $this;
-    }
-
-    /**
-     * Get nombres
-     *
-     * @return string
-     */
-    public function getNombres()
-    {
-        return $this->nombres;
-    }
-
-    /**
-     * Set apellidos
-     *
-     * @param string $apellidos
-     *
-     * @return Estudiantes
-     */
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
-
-        return $this;
-    }
-
-    /**
-     * Get apellidos
-     *
-     * @return string
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * Set sexo
-     *
-     * @param string $sexo
-     *
-     * @return Estudiantes
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
-
-        return $this;
-    }
-
-    /**
-     * Get sexo
-     *
-     * @return string
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
-    }
-
-    /**
-     * Set fechaNacimiento
-     *
-     * @param \DateTime $fechaNacimiento
-     *
-     * @return Estudiantes
-     */
-    public function setFechaNacimiento($fechaNacimiento)
-    {
-        $this->fechaNacimiento = $fechaNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaNacimiento
-     *
-     * @return \DateTime
-     */
-    public function getFechaNacimiento()
-    {
-        return $this->fechaNacimiento;
-    }
+    
 }
-

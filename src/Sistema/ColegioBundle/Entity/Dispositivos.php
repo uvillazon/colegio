@@ -43,6 +43,13 @@ class Dispositivos
      */
     private $estado;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="fcm_token", type="string", length=255)
+     */
+    private $fcmToken;
+
 
     /**
      * Set iddispositivo
@@ -139,5 +146,28 @@ class Dispositivos
     {
         return $this->estado;
     }
-}
 
+    /**
+     * Set fcmToken
+     *
+     * @param string $fcmToken
+     *
+     * @return Dispositivos
+     */
+    public function setFcmToken($fcmToken)
+    {
+        $this->fcmToken = $fcmToken;
+
+        return $this;
+    }
+
+    /**
+     * Get fcmToken
+     *
+     * @return string
+     */
+    public function getFcmToken()
+    {
+        return $this->fcmToken;
+    }
+}

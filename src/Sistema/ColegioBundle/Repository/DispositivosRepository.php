@@ -48,9 +48,10 @@ class DispositivosRepository extends BaseRepository
              */
             if (!is_null($app)) {
 
-                $app->setToken($data["token"]);
-                $app->setEstado($data["estado"]);
-                $app->setImei($data["imei"]);
+//                $app->setToken($data["token"]);
+//                $app->setEstado($data["estado"]);
+//                $app->setImei($data["imei"]);
+                $app->setFcmToken($data["fcm_token"]);
                 $this->_em->flush();
                 $result->success = true;
                 $result->msg = "Proceso Ejectuado Correctamente";
@@ -62,6 +63,7 @@ class DispositivosRepository extends BaseRepository
             var_dump($e->getMessage());
             $result->msg = $e->getCode();
             $result->success = false;
+            $result->code = 401;
         }
         return $result;
 

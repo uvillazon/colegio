@@ -10,10 +10,20 @@ Cursos:
 
 Estudiantes:
     type:     rest
-    prefix:   /estudiantes
     resource: Sistema\ColegioBundle\Controller\EstudiantesController
 
 Dispositivos:
     type:     rest
-    prefix:   /dispositivos
     resource: Sistema\ColegioBundle\Controller\DispositivosController
+
+Reuniones:
+    type:     rest
+    resource: Sistema\ColegioBundle\Controller\ReunionesController
+
+Profesores:
+    type:     rest
+    resource: Sistema\ColegioBundle\Controller\ProfesoresController
+
+Notificaciones:
+    type:     rest
+    resource: Sistema\ColegioBundle\Controller\NotificacionesController

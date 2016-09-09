@@ -10,4 +10,6 @@ namespace Sistema\ColegioBundle\Repository;
  */
 class MaestrosRepository extends BaseRepository
 {
+
+    
 }

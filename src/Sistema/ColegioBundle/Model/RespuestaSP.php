@@ -15,5 +15,22 @@ class RespuestaSP
     public $msg;
     public $id;
     public $data;
-    public $code = 200;
+    public $code;
+
+    /**
+     * RespuestaSP constructor.
+     * @param bool $success
+     * @param string $msg
+     * @param null $data
+     * @param int $code
+     */
+    public function __construct($success = true, $msg = "proceso ejecutado correctamente", $data = null, $code = 200)
+    {
+
+        $this->success = $success;
+        $this->msg = $msg;
+        $this->data = $data;
+        $this->code = $code;
+    }
+
 }

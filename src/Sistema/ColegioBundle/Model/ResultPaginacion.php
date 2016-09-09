@@ -11,10 +11,20 @@ namespace Sistema\ColegioBundle\Model;
 
 class ResultPaginacion
 {
-    public $success;
+    public $success = true;
     public $rows;
-    public $total;
+    public $total = 0;
     public $page;
-    public $msg;
-    public $code=200;
+    public $msg = "proceeso ejectuado correctamente";
+    public $code = 200;
+
+    public function __construct($success = true, $msg = "proceso ejecutado correctamente", $rows = null, $total = 0, $code = 200)
+    {
+
+        $this->success = $success;
+        $this->msg = $msg;
+        $this->rows = $rows;
+        $this->total = $total;
+        $this->code = $code;
+    }
 }

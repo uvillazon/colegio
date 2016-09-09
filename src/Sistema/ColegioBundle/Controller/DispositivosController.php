@@ -2,6 +2,7 @@
 
 namespace Sistema\ColegioBundle\Controller;
 
+use Sistema\ColegioBundle\Model\RespuestaSP;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -22,7 +23,7 @@ class DispositivosController extends BaseController
      * propiedad de la tabla : valor , operador = AND o OR por defecto esta AND
      * por ejemplo para periodos quiero filtrar todos los periodos con etapa a REGIMEN y nro resolucion LL tengo que enviar
      * etapa : REGIMEN , nro_resolucion : lL
-     * @Rest\Get("/")
+     * @Rest\Get("dispositivos")
      * @ApiDoc(
      *   resource = true,
      *   description = "Obtener Estudiantes Paginado",
@@ -45,14 +46,14 @@ class DispositivosController extends BaseController
     }
 
     /**
-     * Este Metodo desasignar lotes a Ordenes de Trabajo
-     * como resultado devuelve los sig. datos{ success= true cuando esta correcto o false si ocurrio algun problema}
+     * enviar fcm_token
      * msg = "mensaje de la accion" , id = "Id del objeto guardado" , data = datos del objeto guardado}
      * Se debe enviar los nombres de las propiedades de las tablas de la BD
-     * @Rest\Put("/")
+     * s
+     * @Rest\Put("/dispositivos/{imei}")
      * @ApiDoc(
      *   resource = true,
-     *   description = "Metodo de Designacion de Lote de  Ordenes de Trabajo",
+     *   description = "Actualizar",
      *   output = "Array",
      *   authentication = true,
      *   statusCodes = {
@@ -63,12 +64,23 @@ class DispositivosController extends BaseController
      * )
      *
      */
-    public function putDispositivosAction(Request $request) {
+    public function putDispositivosAction(Request $request, $imei)
+    {
+        //validar el imei es igual al de token para actualiazar el token
 
         $data = $this->arrayToFormPost($request);
+        $dispo = $this->container->get("JWTDispositivo");
+//        var_dump($imei);
+        if ($imei != $dispo->imei) {
+            return new RespuestaSP(false, "Imei no corresponde con el token enviado", null, 401);
+        }
+        $iddispositivo = is_null($dispo) ? null : $dispo->iddispositivo;
+
         $servicio = $this->get('colegiobundle.dispositivo_service');
+        $data["iddispositivo"] = $iddispositivo;
         $result = $servicio->editarDispositivo($data);
-        return $result;
+//        return $result;
+        return $this->response($result);
 
     }
 }

@@ -37,7 +37,9 @@ twig:
 
 # Doctrine Configuration
 doctrine:
-    dbal:
+#    dbal:
+#        types:
+#            datetime: Sistema\ColegioBundle\DoctrineExtensions\DBAL\Types\UTCDateTimeType
         default_connection: default
         connections:
             default:
