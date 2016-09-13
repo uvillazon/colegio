@@ -216,4 +216,20 @@ class BaseRepository extends EntityRepository
         }
         return null;
     }
+
+    public function contieneInArray($query, $array, $campo)
+    {
+
+        if (count($array) > 0) {
+            $fieldMapping = $this->getClassMetadata()->getFieldForColumn($campo);
+            $alias = $query->getRootAlias();
+            $count = 0;
+            $where = sprintf("%s.%s  IN (:string)", $alias, $fieldMapping);
+
+            $query->andWhere($where);
+            $query->setParameter('string', $array, \Doctrine\DBAL\Connection::PARAM_STR_ARRAY);
+
+        }
+        return $query;
+    }
 }

@@ -26,7 +26,7 @@ class UTCDateTimeType extends DateTimeType
         if (!$value instanceof \DateTime) {
             return null;
         }
-        $value->setTimezone((self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('UTC')));
+        $value->setTimezone((self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('America/La_Paz')));
         return $value->format($platform->getDateTimeFormatString());
     }
     /**
@@ -40,7 +40,7 @@ class UTCDateTimeType extends DateTimeType
         $val = \DateTime::createFromFormat(
             $platform->getDateTimeFormatString(),
             $value,
-            (self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('UTC'))
+            (self::$utc) ? self::$utc : (self::$utc = new \DateTimeZone('America/La_Paz'))
         );
         if (!$val) {
             throw ConversionException::conversionFailed($value, $this->getName());

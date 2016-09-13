@@ -50,6 +50,7 @@ class CursoEvalRepository extends BaseRepository
                         };
 
                         array_push($dimensionesArray, array(
+                            "iddimension" => $cursoEvalDim->getDimension()->getIddimension(),
                             "dimension" => $cursoEvalDim->getDimension()->getDescripcion(),
                             "porcentaje" => $cursoEvalDim->getDimension()->getPorcentaje(),
                             "nota_n" => $cursoEvalDim->getNotaN(),
@@ -58,6 +59,7 @@ class CursoEvalRepository extends BaseRepository
                         ));
 
                     }
+                    $dimensionesArray = $this->sortArray($dimensionesArray, "iddimension");
                     array_push($arrayEval, array(
                         "evaluacion" => $evaluacion->getEvaluacion()->getEvaluacion(),
                         "nota_n" => $evaluacion->getNotaN(),

@@ -47,6 +47,7 @@ class JWTListener implements ListenerInterface
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         $encoder = str_replace("Bearer ", "", $request->headers->get('Authorization'));
+//var_dump($encoder);
         if (empty($encoder)) {
             $response->setStatusCode(Response::HTTP_FORBIDDEN);
             $event->setResponse($response);

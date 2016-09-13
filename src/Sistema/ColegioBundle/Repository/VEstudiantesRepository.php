@@ -84,4 +84,20 @@ class VEstudiantesRepository extends BaseRepository
 
         return is_null($eval) ? 0 : $eval->getNotaN();
     }
+
+    public function obtenerIdEstudiantesPorCursoGestion($idcurso, $idgestion)
+    {
+        $estudiantes = $this->findBy(array("idcurso" => $idcurso, "idgestion" => $idgestion));
+        $idestudiantes = array();
+        /**
+         * @var \Sistema\ColegioBundle\Entity\VEstudiantes $estudiante
+         */
+        foreach ($estudiantes as $estudiante) {
+            if (!in_array($estudiante->getIdestudiante(), $idestudiantes)) {
+                array_push($idestudiantes, $estudiante->getIdestudiante());
+            }
+        }
+        return $idestudiantes;
+
+    }
 }

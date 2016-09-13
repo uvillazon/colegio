@@ -50,10 +50,24 @@ class NotificacionesEstudiante
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="mensaje", type="string", length=255)
      */
     private $mensaje;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="titulo", type="string", length=255)
+     */
+    private $titulo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_emisor", type="string", length=255)
+     */
+    private $nombreEmisor;
 
     /**
      * @var int
@@ -61,6 +75,8 @@ class NotificacionesEstudiante
      * @ORM\Column(name="idestado_notif", type="integer")
      */
     private $idestadoNotif;
+
+    public $estudiante;
 
 
     /**
@@ -229,5 +245,53 @@ class NotificacionesEstudiante
     public function getIdnotificacion()
     {
         return $this->idnotificacion;
+    }
+
+    /**
+     * Set mensaje
+     *
+     * @param string $nombre
+     *
+     * @return NotificacionesEstudiante
+     */
+    public function setNombreEmisor($nombre)
+    {
+        $this->nombreEmisor = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreEmisor
+     *
+     * @return string
+     */
+    public function getNombreEmisor()
+    {
+        return $this->nombreEmisor;
+    }
+
+    /**
+     * Set titulo
+     *
+     * @param string $nombre
+     *
+     * @return NotificacionesEstudiante
+     */
+    public function setTitulo($nombre)
+    {
+        $this->titulo = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get titulo
+     *
+     * @return string
+     */
+    public function getTitulo()
+    {
+        return $this->titulo;
     }
 }

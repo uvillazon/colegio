@@ -62,6 +62,11 @@ class Cursos
     private $gesCurso;
 
 
+    public function optimizar()
+    {
+        $this->gesCurso = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Set idcurso
      *
@@ -205,6 +210,7 @@ class Cursos
     {
         return $this->turno;
     }
+
     /**
      * Constructor
      */

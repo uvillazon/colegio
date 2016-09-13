@@ -49,6 +49,22 @@ class EstudiantesController extends BaseController
         return $this->response($result);
     }
 
+
+    /**
+     * @Rest\Get("/app/estudiantes")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getEstudiantesParaAppAction(Request $request)
+    {
+        //TODO retornar materias , reuniones , notificaciones
+        $paginacion = $this->obtenerPaginacion($request);
+        $servicio = $this->get('colegiobundle.estudiantes_service');
+        $array = $request->query;
+        $result = $servicio->obtenerEstudiantesParaApppPaginados($paginacion, $array);
+        return $this->response($result);
+    }
+
     /**
      * Obtener reuniones del estudiante Paginados
      * formato de respuesta pagiandos

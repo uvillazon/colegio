@@ -5,7 +5,6 @@ Medidores:
 
 Cursos:
     type:     rest
-    prefix:   /cursos
     resource: Sistema\ColegioBundle\Controller\CursosController
 
 Estudiantes:

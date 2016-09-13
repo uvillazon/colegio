@@ -18,6 +18,8 @@ class Notificacion
      * @var int
      * @ORM\Id
      * @ORM\Column(name="idnotificacion", type="integer")
+     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\SequenceGenerator(sequenceName="q_notificacion", allocationSize=1, initialValue=1)
      */
     private $idnotificacion;
 
@@ -71,11 +73,13 @@ class Notificacion
     private $idtipoDestinatario;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="iddestinatario", type="integer")
+     * @ORM\Column(name="nombre_emisor", type="string", length=255)
      */
-    private $iddestinatario;
+    private $nombreEmisor;
+
+
 
 
     /**
@@ -288,28 +292,29 @@ class Notificacion
         return $this->idtipoDestinatario;
     }
 
+
+
     /**
-     * Set iddestinatario
+     * Set titulo
      *
-     * @param integer $iddestinatario
+     * @param string $titulo
      *
      * @return Notificacion
      */
-    public function setIddestinatario($iddestinatario)
+    public function setTitulo($titulo)
     {
-        $this->iddestinatario = $iddestinatario;
+        $this->titulo = $titulo;
 
         return $this;
     }
 
     /**
-     * Get iddestinatario
+     * Get titulo
      *
-     * @return int
+     * @return string
      */
-    public function getIddestinatario()
+    public function getTitulo()
     {
-        return $this->iddestinatario;
+        return $this->titulo;
     }
 }
-

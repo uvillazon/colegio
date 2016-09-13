@@ -42,6 +42,38 @@ class EstudiantesService
 //        $this->repoDispositivos = $this->em->getRepository("SistemaColegioBundle:HorarioMaestro");
     }
 
+
+    /**
+     * @param \Sistema\ColegioBundle\Model\PaginacionModel $paginacion
+     * @param array $array
+     * @return \Sistema\ColegioBundle\Model\ResultPaginacion
+     */
+    public function obtenerEstudiantesParaApppPaginados($paginacion, $array)
+    {
+        $result = new \Sistema\ColegioBundle\Model\ResultPaginacion();
+        $repo = $this->em->getRepository('SistemaColegioBundle:Estudiantes');
+        $query = $repo->createQueryBuilder('app');
+//        var_dump($query->getDQL());
+        if (!is_null($paginacion->contiene)) {
+            $query = $repo->consultaContiene($query, ["cod_estudiante", "nombres", "apellido_paterno", "apelllido_materno", "sexo"], $paginacion->contiene);
+        }
+
+        $query = $repo->filtrarDatos($query, $array);
+
+        if (!is_null($array->get("idcurso"))) {
+            $idestudiantes = $this->repoVEstudiantes->obtenerIdEstudiantesPorCursoGestion($array->get("idcurso"), 2016);
+
+            $query = $repo->contieneInArray($query, $idestudiantes, "idestudiante");
+        }
+        $result->total = $repo->total($query);
+        if (!$paginacion->isEmpty()) {
+            $query = $repo->obtenerElementosPaginados($query, $paginacion);
+        }
+        $result->rows = $query->getQuery()->getResult();
+        $result->success = true;
+        return $result;
+    }
+
     /**
      * @param \Sistema\ColegioBundle\Model\PaginacionModel $paginacion
      * @param array $array

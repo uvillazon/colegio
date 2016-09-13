@@ -89,7 +89,7 @@ class HorarioMaestroRepository extends BaseRepository
      */
     public function get4Fechas($day, $horario)
     {
-        $UTC = new \DateTimeZone("UTC");
+        $UTC = new \DateTimeZone("America/La_paz");
 //        var_dump($day);
         $rows = array();
 //        var_dump($horario->getHoraIni()->format("H:i:s"));
@@ -100,7 +100,7 @@ class HorarioMaestroRepository extends BaseRepository
         $last = "last " . $day;
 //        var_dump($last);
         $date = new \DateTime();
-        var_dump($date);
+//        var_dump($date);
 //        var_dump($date);
         $searchRow = date("Y-m-d", strtotime($last, strtotime('today')));
         $lastDate = new \DateTime($searchRow);
@@ -112,18 +112,18 @@ class HorarioMaestroRepository extends BaseRepository
         }
 //        var_dump($lastDate);
 //        die();
-        $fechaIni = new \DateTime($lastDate->format("Y-m-d " . $horaIni));
-        var_dump($fechaIni);
-        var_dump($fechaIni->setTimezone($UTC));
-        die();
-        $fechaFin = new \DateTime($lastDate->format("Y-m-d " . $horaFin));
+        $fechaIni = new \DateTime($lastDate->format("Y-m-d " . $horaIni), $UTC);
+//        var_dump($fechaIni);
+//        var_dump($fechaIni->setTimezone($UTC));
+//        die();
+        $fechaFin = new \DateTime($lastDate->format("Y-m-d " . $horaFin), $UTC);
         array_push($rows, array("fecha_ini" => $fechaIni, "fecha_fin" => $fechaFin));
 //        var_dump($rows);
 //        die();
         for ($i = 0; $i < 4; $i++) {
             $lastDate = $lastDate->modify('+7 day');
-            $fechaIni = new \DateTime($lastDate->format("Y-m-d " . $horaIni));
-            $fechaFin = new \DateTime($lastDate->format("Y-m-d " . $horaFin));
+            $fechaIni = new \DateTime($lastDate->format("Y-m-d " . $horaIni), $UTC);
+            $fechaFin = new \DateTime($lastDate->format("Y-m-d " . $horaFin), $UTC);
             array_push($rows, array("fecha_ini" => $fechaIni, "fecha_fin" => $fechaFin));
 
 //            $time = date("H:i:s", $date);

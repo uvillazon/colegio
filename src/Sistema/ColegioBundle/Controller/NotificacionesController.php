@@ -2,6 +2,7 @@
 
 namespace Sistema\ColegioBundle\Controller;
 
+use Sistema\ColegioBundle\Model\RespuestaSP;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -40,7 +41,41 @@ class NotificacionesController extends BaseController
         $paginacion = $this->obtenerPaginacion($request);
         $servicio = $this->get('colegiobundle.notificaciones_service');
         $array = $request->query;
-        $result = $servicio->enviarNotificaciones($paginacion, $array);
+        $result = $servicio->obtenerNotificacionesPaginados($paginacion, $array);
         return $result;
+    }
+
+    /**
+     * @Rest\get("/notificaciones/tipo")
+     * @param Request $request
+     * @return mixed
+     */
+    public function getTipoNotificacionesAction(Request $request)
+    {
+        $paginacion = $this->obtenerPaginacion($request);
+        $servicio = $this->get('colegiobundle.notificaciones_service');
+        $array = $request->query;
+        $result = $servicio->obtenerTiposNotificacionesPaginados($paginacion, $array);
+        return $result;
+    }
+
+    /**
+     * @Rest\Post("/notificaciones")
+     * @param Request $requesta
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postEnviarEstudianteAction(Request $request)
+    {
+        $data = $this->arrayToFormPost($request);
+//        var_dump($data);
+        $servicio = $this->get('colegiobundle.notificaciones_service');
+        if ($data["idtipo_notificacion"] === "1") {
+            $result = $servicio->enviarNotificacionesPorEstudiante($data, "rsaavedra");
+        } else if ($data["idtipo_notificacion"] === "2") {
+            $result = $servicio->enviarNoticicacionesPorCurso($data, "rsaavedra");
+        } else {
+            $result = new RespuestaSP(false, " No esta implementado el tipo", null, 403);
+        }
+        return $this->response($result);
     }
 }

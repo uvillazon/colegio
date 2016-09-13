@@ -1,11 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_pgsql
-    database_host: localhost
-    database_port: 5433
-    database_name: colegio_oficial
-    database_user: postgres
-    database_password: postgresql
+    database_host: lasallesantacruz.net
+    database_port: 5432
+    database_name: lasalles_colegio_oficial_v1
+    database_user: lasalles_bd1
+    database_password: usuario
     mailer_transport: mail
     mailer_host: elfmex01.elfec.com
     mailer_user: sisman@elfec.bo

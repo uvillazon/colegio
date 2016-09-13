@@ -33,13 +33,13 @@ class AutenticacionService
 
     private function verificarSignature($imei, $key)
     {
-        $repo = $this->em->getRepository("ColegioSistemaBundle:Key");
+        $repo = $this->em->getRepository("SistemaColegioBundle:Key");
         $keys = $repo->findBy(array("estado" => "activo"));
         /**
          * @var \Sistema\ColegioBundle\Entity\Key $key
          */
-        foreach ($keys as $key) {
-            $hash1 = $imei . "" . $key->getKey() . "" . $key->getKey();
+        foreach ($keys as $keyi) {
+            $hash1 = $imei . "" . $keyi->getKey() . "" . $keyi->getVersion();
             if ($key === sha1($hash1)) {
                 return true;
             }
@@ -113,8 +113,8 @@ class AutenticacionService
     {
 //        var_dump($data);
         $repo = $this->em->getRepository("SistemaColegioBundle:UsuarioApp");
-        $login = $data["login"];
-        $contrasena = $data["contrasena"];
+        $login = $data["username"];
+        $contrasena = $data["password"];
         $usuario = $repo->findOneBy(array("usuario" => $login, "contrasena" => $contrasena));
         if (is_null($usuario)) {
             return new RespuestaSP(false, "Contrasena Incorrecta", null, 200);
